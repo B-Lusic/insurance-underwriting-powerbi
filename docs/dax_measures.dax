@@ -1,1 +1,53 @@
 
+// ================================================
+// PROJECT: Insurance Portfolio & Underwriting Dashboard
+// FILE: dax_measures.dax
+// AUTHOR: Ben Lusic
+// ================================================
+
+// 1. Total Written Premium
+Total Written Premium = 
+SUM(FactPolicy[WrittenPremium])
+
+// 2. Total Earned Premium
+Total Earned Premium = 
+SUM(FactPolicy[EarnedPremium])
+
+// 3. Total Claims Incurred
+Total Claims Incurred = 
+SUM(FactClaims[ClaimAmount])
+
+// 4. Loss Ratio (%)
+Loss Ratio = 
+DIVIDE(
+    [Total Claims Incurred],
+    [Total Earned Premium],
+    0
+)
+
+// 5. Total Policy Count
+Total Policies = 
+DISTINCTCOUNT(FactPolicy[PolicyID])
+
+// 6. Claim Frequency Ratio
+Claim Frequency = 
+DIVIDE(
+    DISTINCTCOUNT(FactClaims[ClaimID]),
+    [Total Policies],
+    0
+)
+
+// 7. Average Loss Per Claim
+Average Claim Severity = 
+DIVIDE(
+    [Total Claims Incurred],
+    DISTINCTCOUNT(FactClaims[ClaimID]),
+    0
+)
+
+// 8. Year-over-Year Premium Growth
+YoY Premium Growth = 
+VAR CurrentYear = [Total Written Premium]
+VAR PriorYear = CALCULATE([Total Written Premium], SAMEPERIODLASTYEAR(DimDate[Date]))
+RETURN
+DIVIDE(CurrentYear - PriorYear, PriorYear, 0)
