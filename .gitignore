@@ -1,0 +1,39 @@
+# ==========================================
+# Power BI & Analysis Services
+# ==========================================
+*.tmp
+*.log
+*.pbit.data
+*.abf
+*.mdmp
+*.xmla
+*.bak
+
+# Power BI Auto-Recovery & Backup files
+*.pbix.auto
+*.pbi/
+
+# ==========================================
+# Data Files & Storage Controls
+# ==========================================
+# Exclude raw dataset dumps / large data files
+data/raw/*
+!data/raw/.gitkeep
+
+# Exclude bulk database extracts
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.zip
+*.tar.gz
+
+# ==========================================
+# OS & Environment Files
+# ==========================================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
